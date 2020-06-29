@@ -18,7 +18,7 @@ describe('Test bankaccountModel', () => {
         });
     });
     
-    describe('Find bankaccounts', () => {
+    describe('Find all bankaccounts', () => {
         it('should get the list of bankaccounts by userid, should return two bankaccounts', () => {
             bankaccountModel.getAllById(1, (err,res) => {
                 assert.isArray(res);
@@ -36,7 +36,7 @@ describe('Test bankaccountModel', () => {
     
     describe('Find bankaccount', () => {
         it('should return one bankaccount by its id', () => {
-            bankaccountModel.getById(1, 1, (err,res) => {
+            bankaccountModel.getById( 1, (err,res) => {
                 assert.isNotNull(res);
                 assert.property(res,"bankaccountId");
                 assert.property(res,"userId");
@@ -48,14 +48,7 @@ describe('Test bankaccountModel', () => {
             });
         });
         it('should return error not found, because bankaccount does not exist in the database', () => {
-            bankaccountModel.getById(1, 10,  (err,res) => {
-                assert.isNull(res);
-                assert.isNotNull(err);
-                assert.propertyVal(err,"kind","not_found");
-            });
-        });
-        it('should return error not found, because user does not exist in the database', () => {
-            bankaccountModel.getById(10, 1,  (err,res) => {
+            bankaccountModel.getById( 10,  (err,res) => {
                 assert.isNull(res);
                 assert.isNotNull(err);
                 assert.propertyVal(err,"kind","not_found");
@@ -83,30 +76,18 @@ describe('Test bankaccountModel', () => {
                 assert.propertyVal(err,"kind","not_found");
             });
         });
-        it('should return error not_found because the user does not exist', () => {
-            bankaccountModel.updateById(20, 2, myTestBankaccount, (err,res) => {
-                assert.isNull(res);
-                assert.propertyVal(err,"kind","not_found");
-            });
-        });
     });
 
 
     describe('Delete bankaccount', () => {
         it('should return result updated_bankaccount', () => {
-            bankaccountModel.deleteById(1, 2,  (err,res) => {
+            bankaccountModel.deleteById(2,  (err,res) => {
                 assert.isNull(err);
                 assert.propertyVal(res,"kind","deleted_bankaccount");
             });
         });
         it('should return error not_found because the bankaccount does not exist', () => {
-            bankaccountModel.deleteById(1, 20, (err,res) => {
-                assert.isNull(res);
-                assert.propertyVal(err,"kind","not_found");
-            });
-        });
-        it('should return error not_found because the user does not exist', () => {
-            bankaccountModel.deleteById(20, 2, (err,res) => {
+            bankaccountModel.deleteById(20, (err,res) => {
                 assert.isNull(res);
                 assert.propertyVal(err,"kind","not_found");
             });

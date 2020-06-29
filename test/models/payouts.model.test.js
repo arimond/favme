@@ -8,15 +8,9 @@ describe('Test payoutModel', () => {
             amount: 40000,
         }
         it('should create a payout in the database', () => {
-            payoutModel.create(1, myTestPayout, (err, res) => {
+            payoutModel.create(myTestPayout, (err, res) => {
                 assert.isNull(err);
                 assert.isNotNull(res);
-            });
-        });
-        it('should return an error because the userId does not match the bankaccountId ', () => {
-            payoutModel.create(2, myTestPayout, (err, res) => {
-                assert.isNull(res);
-                assert.isNotNull(err);
             });
         });
     });

@@ -47,10 +47,10 @@ module.exports = class BankAccount {
     }
 
     // Get One bankaccount by the bankaccountId
-    static getById(userId, bankaccountId, result) {
+    static getById(bankaccountId, result) {
         sql.query(
-            'select bankaccountId, userId, country, beneficiary, iban, bic from bankaccounts where userId = ? and bankaccountId = ?',
-            [userId, bankaccountId],
+            'select bankaccountId, userId, country, beneficiary, iban, bic from bankaccounts where bankaccountId = ?',
+            [bankaccountId],
             (err, res) => {
                  
                 //Database Error
@@ -71,25 +71,17 @@ module.exports = class BankAccount {
         );
     }
 
-    // Update a bankaccount 
-    static updateById(userId, bankaccountId, bankaccount, result) {
-        this.deleteById(userId, bankaccountId, (err, res) => {
-            if(err){
-                result(err, res);
-                return;
-            }
-            this.create(userId, bankaccount, (err, res) => {
-                result(err,res);
-            });
-        });
-    }
-
-
     // Delete a Bankaccount 
-    static deleteById(userId, bankaccountId, result) {
+    /*
+        Bankaccount is not deleted in the Database, 
+        the isActive property is set to 0 and a new
+        Bankaccout is created with the updated values.
+        This is for consistency 
+    */
+    static deleteById(bankaccountId, result) {
         sql.query(
-            'update bankaccounts set isActive = 0 where userId = ? and bankaccountId = ?',
-            [userId, bankaccountId],
+            'update bankaccounts set isActive = 0 where bankaccountId = ?',
+            [bankaccountId],
             (err, res) => {
                 // Database Error
                 if(err){
@@ -97,7 +89,7 @@ module.exports = class BankAccount {
                     return;
                 }
 
-                //Found no bankaccount for the userId or bankaccountId
+                //Found no bankaccount for the bankaccountId
                 if(res.affectedRows == 0){
                     result({kind: "not_found"}, null);
                     return;
@@ -107,5 +99,18 @@ module.exports = class BankAccount {
                 result(null, {kind: "deleted_bankaccount"});
             }
         );
+    }
+
+    // Update a bankaccount 
+    static updateById(userId, bankaccountId, bankaccount, result) {
+        this.deleteById(bankaccountId, (err, res) => {
+            if(err){
+                result(err, res);
+                return;
+            }
+            this.create(userId, bankaccount, (err, res) => {
+                result(err,res);
+            });
+        });
     }
 }

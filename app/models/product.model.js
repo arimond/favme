@@ -50,10 +50,10 @@ module.exports = class Product{
     }
 
     // Get One Product by the productId
-    static getById(userId, productId, result) {
+    static getById(productId, result) {
         sql.query(
-            'select productId, userId, name, description, image, price, income, fee, currency from products where userId = ? and productId = ? and isActive = 1',
-            [userId, productId],
+            'select productId, userId, name, description, image, price, income, fee, currency from products where productId = ? and isActive = 1',
+            [productId],
             (err, res) => {
                  
                 //Database Error
@@ -74,24 +74,11 @@ module.exports = class Product{
         );
     }
 
-    // Update a product 
-    static updateById(userId, productId, product, result) {
-        this.deleteById(userId, productId, (err, res) => {
-            if(err){
-                result(err, res);
-                return;
-            }
-            this.create(userId, product, (err, res) => {
-                result(err,res);
-            });
-        });
-    }
-
     // Delete a Product 
-    static deleteById(userId, productId, result) {
+    static deleteById(productId, result) {
         sql.query(
-            'update products set isActive = 0 where userId = ? and productId = ?',
-            [userId, productId],
+            'update products set isActive = 0 where productId = ?',
+            [productId],
             (err, res) => {
                 // Database Error
                 if(err){
@@ -109,5 +96,19 @@ module.exports = class Product{
                 result(null, {kind: "deleted_product"});
             }
         );
+    }
+
+
+    // Update a product 
+    static updateById(userId, productId, product, result) {
+        this.deleteById(productId, (err, res) => {
+            if(err){
+                result(err, res);
+                return;
+            }
+            this.create(userId, product, (err, res) => {
+                result(err,res);
+            });
+        });
     }
 }

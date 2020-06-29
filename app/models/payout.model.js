@@ -8,10 +8,10 @@ module.exports = class Payout{
     }
 
     // Create a payout
-    static create(userId, payout, result) {
+    static create(payout, result) {
         sql.query(
-            'INSERT INTO Payouts(bankaccountId, amount) VALUES ((SELECT bankaccountId FROM Bankaccounts WHERE bankaccountId = ? AND userId = ?), ?)',
-            [payout.bankaccountId, userId, payout.amount],
+            'INSERT INTO Payouts(bankaccountId, amount) VALUES (?, ?)',
+            [payout.bankaccountId, payout.amount],
             (err, res) => {
 
                 // Database Error

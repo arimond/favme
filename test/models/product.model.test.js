@@ -41,7 +41,7 @@ describe('Test productModel', () => {
     
     describe('Find product', () => {
         it('should return one product by its productId and userId', () => {
-            productModel.getById(1, 5, (err,res) => {
+            productModel.getById(5, (err,res) => {
                 assert.isNotNull(res);
                 assert.property(res,"productId");
                 assert.property(res,"userId");
@@ -55,21 +55,13 @@ describe('Test productModel', () => {
             });
         });
         it('should return error not found, because product does not exist in the database', () => {
-            productModel.getById(1, 30,  (err,res) => {
-                assert.isNull(res);
-                assert.isNotNull(err);
-                assert.propertyVal(err,"kind","not_found");
-            });
-        });
-        it('should return error not found, because user does not exist in the database', () => {
-            productModel.getById(30, 4,  (err,res) => {
+            productModel.getById(30,  (err,res) => {
                 assert.isNull(res);
                 assert.isNotNull(err);
                 assert.propertyVal(err,"kind","not_found");
             });
         });
     });
-    
     
     
     describe('Update Product', () => {
@@ -93,35 +85,21 @@ describe('Test productModel', () => {
                 assert.propertyVal(err,"kind","not_found");
             });
         });
-        it('should return error not_found because the user does not exist', () => {
-            productModel.updateById(20, 2, myTestProduct, (err,res) => {
-                assert.isNull(res);
-                assert.propertyVal(err,"kind","not_found");
-            });
-        });
     });
     
     
     describe('Delete product', () => {
         it('should return result deleted_product', () => {
-            productModel.deleteById(1, 4,  (err,res) => {
+            productModel.deleteById( 4,  (err,res) => {
                 assert.isNull(err);
                 assert.propertyVal(res,"kind","deleted_product");
             });
         });
         it('should return error not_found because the product does not exist', () => {
-            productModel.deleteById(1, 20, (err,res) => {
-                assert.isNull(res);
-                assert.propertyVal(err,"kind","not_found");
-            });
-        });
-        it('should return error not_found because the user does not exist', () => {
-            productModel.deleteById(20, 4, (err,res) => {
+            productModel.deleteById( 20, (err,res) => {
                 assert.isNull(res);
                 assert.propertyVal(err,"kind","not_found");
             });
         });
     });
-    
-    
 });

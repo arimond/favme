@@ -1,8 +1,3 @@
-//For access enviroment variables from the .env File by process.env.<Key>
-if(process.env.NODE_ENV !== 'production'){
-    require('dotenv').config();
-}
-
 const mysql = require('mysql');
 const env = process.env.NODE_ENV.toUpperCase();
 

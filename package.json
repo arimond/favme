@@ -4,19 +4,27 @@
   "description": "FavMe Backend",
   "main": "server.js",
   "scripts": {
+    "start": "NODE_ENV=development nodemon server.js",
     "test": "npm run createTestDatabase && NODE_ENV=test mocha --recursive",
     "createTestDatabase": "mysql -h localhost -u root -p < scripts/createTestDatabase.sql",
-    "start": "NODE_ENV=development nodemon server.js"
+    "generateKeypair": "node scripts/generateKeypair.js"
   },
   "author": "Peer Arimond",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arimond/favme"
+  },
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "mocha": "^8.0.1",
     "nodemon": "^2.0.4"
   }

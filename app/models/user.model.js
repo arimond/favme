@@ -3,7 +3,7 @@ const sql = require("../config/database.js");
 module.exports = class User {
     constructor(user) {
         this.email = user.email;
-        this.name = user.name;
+        this.username = user.username;
         this.hash = user.hash;
         this.salt = user.salt;
     }
@@ -11,8 +11,8 @@ module.exports = class User {
     // Creates a new User in the Database
     static create(user, result) {
         sql.query(
-            'insert into Users(username, password, salt, email) values(?, ?, ?, ?)',
-            [user.username, user.password, user.salt, user.email],
+            'insert into Users(username, hash, salt, email) values(?, ?, ?, ?)',
+            [user.username, user.hash, user.salt, user.email],
             (err, res) => {
 
                 // Database Error
@@ -30,7 +30,7 @@ module.exports = class User {
     // Returns a User by its email
     static getByEmail(email, result){
         sql.query(
-            'select username, password, salt, email from Users where email = ?',
+            'select userId, username, hash, salt, email from Users where email = ?',
             [email],
             (err, res) => {
 
@@ -50,6 +50,31 @@ module.exports = class User {
                 result({kind: "not_found"}, null);
             }
         );
+    }
+
+    // Returns a User by its Id
+    static getUserById(userId, result) {
+        sql.query(
+            'select userId, username, hash, salt from Users where userId = ?',
+            [userId],
+            (err, res) =>{
+
+                // Database Error
+                if(err){
+                    result(err, null);
+                    return;
+                }
+
+                // Found one User
+                if(res.length){
+                    result(null, res[0]);
+                    return;
+                }
+
+                // Found no User for the email address
+                result({kind: "not_found"}, null);
+            }
+        )
     }
 
     // Return the Balance of a User by its userId

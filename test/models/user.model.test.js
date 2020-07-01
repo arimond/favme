@@ -6,12 +6,13 @@ describe('Test UserModel', () => {
         it('should create a user in the database', () => {
             myTestUser={
                 username: "Peeedqdaadseddefseeeere",
-                password: "oaisdadaddqodsfsaseddhiaeh",
+                hash: "oaisdadaddqodsfsaseddhiaeh",
                 salt: "sajhaskddadqadsjesed",
                 email: "anuswunaqeasd@getiei"
             }
+            const user = new userModel(myTestUser);
 
-            userModel.create(myTestUser, (err, res) => {
+            userModel.create(user, (err, res) => {
                 assert.isNotNull(res);
                 assert.isNull(err);
             });
@@ -19,7 +20,7 @@ describe('Test UserModel', () => {
         it('should return error because the user already exists', () => {
             myTestUser={
                 username: "Peeedqdaadseddefseeeere",
-                password: "oaisdadaddqodsfsaseddhiaeh",
+                hash: "oaisdadaddqodsfsaseddhiaeh",
                 salt: "sajhaskddadqadsjesed",
                 email: "peer@mymail.com"
             }
@@ -34,7 +35,7 @@ describe('Test UserModel', () => {
             userModel.getByEmail("peer@mymail.com", (err,res) => {
                 assert.isNotNull(res);
                 assert.property(res,"username");
-                assert.property(res, "password");
+                assert.property(res, "hash");
                 assert.property(res, "salt");
                 assert.property(res, "email");
                 assert.isNull(err);

@@ -4,11 +4,11 @@ const payoutModel = require('../../app/models/payout.model');
 describe('Test payoutModel', () => {
     describe('Create the payout', () => {
         myTestPayout={
-            bankaccountId: 1,
+            bankaccountId: 3,
             amount: 40000,
         }
         it('should create a payout in the database', () => {
-            payoutModel.create(myTestPayout, (err, res) => {
+            payoutModel.create(2,myTestPayout, (err, res) => {
                 assert.isNull(err);
                 assert.isNotNull(res);
             });

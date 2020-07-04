@@ -1,14 +1,17 @@
 const userModel = require('../models/user.model.js');
-const utils = require('../lib/utils');
+const utils = require('../lib/authentication');
 
-module.exports = class UserController{
-    static register(req,res) {
+// Import Errors
+const InvalidInputError = require('../errors/InvalidInputError');
+const InternalServerError = require('../errors/InternalServerError');
+const InvalidCredentials = require('../errors/InvalidCredentials');
+
+module.exports = class UserController {
+    static register(req, res, next) {
         // Validate request
-        if(!req.body || !req.body.username || !req.body.email || !req.body.password || 
+        if (!req.body || !req.body.username || !req.body.email || !req.body.password ||
             (typeof req.body.username) !== 'string' || (typeof req.body.email) !== 'string' || (typeof req.body.password) !== 'string') {
-            // For better practise use Error Handling and design one Error which could be reused for invalid Input 
-            res.status(400).send("Invalid Input");
-            return;
+            return next(new InvalidInputError());
         }
 
         // Generate salt and hash
@@ -21,43 +24,37 @@ module.exports = class UserController{
             hash: hash,
             salt: salt
         });
-        
+
         // Create the user in the database
         userModel.create(user, (error, result) => {
-            //console.log(error, result);
-            if(error){
-                // For better practise use Error Handling and design one Error which could be reused for invalid Input 
-                // May be implement an Error for already existing username and usererror for better user experience
-                res.status(400).send("Invalid Input");
-                return;
+            if (error) {
+                return next(new InternalServerError());
             }
             res.status(200).send("Created User");
         });
     }
 
-    static login(req, res) {
+    static login(req, res, next) {
         // Validate Request
-        if(!req.body || !req.body.email || !req.body.password ||
-            (typeof req.body.email) !== 'string' || (typeof req.body.password) !== 'string'){
-                res.status(400).send("Invalid Input");
-                return;
+        if (!req.body || !req.body.email || !req.body.password ||
+            (typeof req.body.email) !== 'string' || (typeof req.body.password) !== 'string') {
+            return next(new InvalidInputError());
         }
 
         // Get the User from the database
         userModel.getByEmail(req.body.email, (error, user) => {
-            if(error){
-                // For better user experience return Error: User not found
-                res.status(401).send("Invalid User Credentials");
-                return;
+            // No User for email
+            if (error) {
+                return next(new InvalidCredentials());
             }
 
             // Validate Password with hash and salt from database
             const isValid = utils.validatePassword(req.body.password, user.hash, user.salt);
 
             // User is invalid
-            if(!isValid){
-                res.status(401).send("Invalid User Credentials");
-                return;
+            if (!isValid) {
+                // Password is invalid for User
+                return next(new InvalidCredentials());
             }
 
             // User is valid, return token 
@@ -70,12 +67,14 @@ module.exports = class UserController{
         });
     }
 
-    static getBalance(req, res){
-        console.log(req.params.userId);
-        console.log(req.params);
-        console.log(req.user);
-        res.status(200).send({
-            message:"It works"
+    static getBalance(req, res, next) {
+        userModel.getBalanceById(req.user.userId, (error, balance) => {
+            if (error) {
+                // Is always internal database Error, because we know the User exists in the database
+                return next(new InternalServerError());
+            }
+            // Return the balance
+            res.status(200).json({ balance: balance.balance });
         });
     }
 }

@@ -65,7 +65,7 @@ describe('Test bankaccountModel', () => {
             bic: "1958236344"
         }
         it('should update the bankaccount', () => {
-            bankaccountModel.updateById(1, 2, myTestBankaccount, (err,res) => {
+            bankaccountModel.updateById(2, 3, myTestBankaccount, (err,res) => {
                 assert.isNull(err);
                 assert.isNotNull(res);
             });
@@ -80,14 +80,14 @@ describe('Test bankaccountModel', () => {
 
 
     describe('Delete bankaccount', () => {
-        it('should return result updated_bankaccount', () => {
-            bankaccountModel.deleteById(2,  (err,res) => {
+        it('should return result deleted_bankaccount', () => {
+            bankaccountModel.deleteById(2, 4,  (err,res) => {
                 assert.isNull(err);
                 assert.propertyVal(res,"kind","deleted_bankaccount");
             });
         });
         it('should return error not_found because the bankaccount does not exist', () => {
-            bankaccountModel.deleteById(20, (err,res) => {
+            bankaccountModel.deleteById(1, 20, (err,res) => {
                 assert.isNull(res);
                 assert.propertyVal(err,"kind","not_found");
             });

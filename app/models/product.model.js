@@ -43,6 +43,12 @@ module.exports = class Product{
                     return;
                 }
 
+                // Request not found
+                if(!res.length){
+                    result({kind:"not_found"}, null);
+                    return;
+                }
+
                 // Return Products
                 result(null, res);
             }
@@ -50,10 +56,10 @@ module.exports = class Product{
     }
 
     // Get One Product by the productId
-    static getById(productId, result) {
+    static getById(userId, productId, result) {
         sql.query(
-            'select productId, userId, name, description, image, price, income, fee, currency from products where productId = ? and isActive = 1',
-            [productId],
+            'select productId, userId, name, description, image, price, income, fee, currency from products where productId = ? and userId = ?  and isActive = 1',
+            [productId, userId],
             (err, res) => {
                  
                 //Database Error
@@ -75,10 +81,10 @@ module.exports = class Product{
     }
 
     // Delete a Product 
-    static deleteById(productId, result) {
+    static deleteById(userId, productId, result) {
         sql.query(
-            'update products set isActive = 0 where productId = ?',
-            [productId],
+            'update products set isActive = 0 where productId = ? and userId = ? and  isActive = 1',
+            [productId, userId],
             (err, res) => {
                 // Database Error
                 if(err){
@@ -101,7 +107,7 @@ module.exports = class Product{
 
     // Update a product 
     static updateById(userId, productId, product, result) {
-        this.deleteById(productId, (err, res) => {
+        this.deleteById(userId, productId, (err, res) => {
             if(err){
                 result(err, res);
                 return;

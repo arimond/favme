@@ -33,15 +33,20 @@ module.exports = class BankAccount {
             'select bankaccountId, userId, country, beneficiary, iban, bic from bankaccounts where userId = ?',
             [userId],
             (err, res) => {
-
+                //console.log(err);
+                //console.log(res);
                 // Database Error
                 if(err){
                     result(err,null);
                     return;
                 }
 
-                // Return Products
-                result(null, res);
+                if(res.length){
+                    result(null, res);
+                    return;
+                }
+
+                result({kind: "not_found"}, null );
             }
         );
     }
@@ -78,10 +83,10 @@ module.exports = class BankAccount {
         Bankaccout is created with the updated values.
         This is for consistency 
     */
-    static deleteById(bankaccountId, result) {
+    static deleteById(userId, bankaccountId, result) {
         sql.query(
-            'update bankaccounts set isActive = 0 where bankaccountId = ?',
-            [bankaccountId],
+            'update bankaccounts set isActive = 0 where bankaccountId = ? and userId = ? and isActive = 1',
+            [bankaccountId, userId],
             (err, res) => {
                 // Database Error
                 if(err){
@@ -103,7 +108,7 @@ module.exports = class BankAccount {
 
     // Update a bankaccount 
     static updateById(userId, bankaccountId, bankaccount, result) {
-        this.deleteById(bankaccountId, (err, res) => {
+        this.deleteById(userId, bankaccountId, (err, res) => {
             if(err){
                 result(err, res);
                 return;

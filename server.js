@@ -1,4 +1,5 @@
 const express = require("express");
+const logger = require('morgan');
 const passport = require('passport');
 
 
@@ -12,17 +13,30 @@ if(process.env.NODE_ENV !== 'production'){
 //Create Express Application
 const app = express ();
 
+
+// Logger for development
+if(process.env.NODE_ENV === 'development'){
+    app.use(logger('dev'));
+}
+
+
 // Configure Passport
 require('./app/config/passport')(passport);
 
+
+
 // parse requests of content-type: application/json
 app.use(express.json());
-
 app.use(passport.initialize());
 
 
+
+
 // parse requests of content-type: application/x-www-form-urlencoded
-//app.use(express.urlencoded({ extended:true }));
+//app.use(express.urlencoded({ extended:false }));
+
+
+app.use('/api/',express.static('public'));
 
 //ROUTES
 require("./app/routes/user.routes")(app);
@@ -33,10 +47,7 @@ require("./app/routes/product.routes")(app);
 require("./app/routes/profile.routes")(app);
 require("./app/routes/sell.routes")(app);
 require("./app/routes/user.routes")(app);
-
-app.get('/', (req, res) => {
-    res.json({message: "We are on Home no longer"});
-});
+require("./app/routes/error.routes")(app);
 
 //
 app.listen(4000);

@@ -101,7 +101,7 @@ module.exports = class User {
     // Add Balance of a User by its userId
     static addBalanceById(userId, value, result){
         sql.query(
-            'UPDATE users SET balance = balance + ? WHERE userId = ? ',
+            'UPDATE Users SET balance = balance + ? WHERE userId = ? ',
             [value, userId],
             (err, res) => {
                 // Database Error

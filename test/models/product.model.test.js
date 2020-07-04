@@ -41,7 +41,7 @@ describe('Test productModel', () => {
     
     describe('Find product', () => {
         it('should return one product by its productId and userId', () => {
-            productModel.getById(5, (err,res) => {
+            productModel.getById(1, 5, (err,res) => {
                 assert.isNotNull(res);
                 assert.property(res,"productId");
                 assert.property(res,"userId");
@@ -55,7 +55,7 @@ describe('Test productModel', () => {
             });
         });
         it('should return error not found, because product does not exist in the database', () => {
-            productModel.getById(30,  (err,res) => {
+            productModel.getById(1, 30,  (err,res) => {
                 assert.isNull(res);
                 assert.isNotNull(err);
                 assert.propertyVal(err,"kind","not_found");
@@ -74,7 +74,7 @@ describe('Test productModel', () => {
             currency: "eur"
         }
         it('should update the product', () => {
-            productModel.updateById(1, 4, myTestProduct, (err,res) => {
+            productModel.updateById(1, 6, myTestProduct, (err,res) => {
                 assert.isNull(err);
                 assert.isNotNull(res);
             });
@@ -90,13 +90,13 @@ describe('Test productModel', () => {
     
     describe('Delete product', () => {
         it('should return result deleted_product', () => {
-            productModel.deleteById( 4,  (err,res) => {
+            productModel.deleteById(1, 5,  (err,res) => {
                 assert.isNull(err);
                 assert.propertyVal(res,"kind","deleted_product");
             });
         });
         it('should return error not_found because the product does not exist', () => {
-            productModel.deleteById( 20, (err,res) => {
+            productModel.deleteById(1, 20, (err,res) => {
                 assert.isNull(res);
                 assert.propertyVal(err,"kind","not_found");
             });

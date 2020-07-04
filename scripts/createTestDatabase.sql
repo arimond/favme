@@ -205,7 +205,7 @@ CREATE TABLE `Users` (
   `userId` int unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
   `hash` char(128) NOT NULL,
-  `salt` char(32) NOT NULL,
+  `salt` char(128) NOT NULL,
   `email` varchar(320) NOT NULL,
   `profileEmail` varchar(320) DEFAULT NULL,
   `profileProfession` varchar(300) DEFAULT NULL,
@@ -225,7 +225,7 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` (`userId`, `username`, `hash`, `salt`, `email`, `profileEmail`, `profileProfession`, `profilePhone`, `profileDescription`, `profileImage`, `balance`) VALUES (1,'Peer','sahdkasdjhgisdga','isadguiadg87t31gu','peer@mymail.com','peer@publicmail.com','Nachhilfelehrer','017561874625','Ich bin einer, wenn nicht der beste Nachhilfelehrer, den die Welt je gesehen hat. Dies ist ein Beispielfließtext, der beschreibt was mich beschreibt','path/to/the/image/myimage.png',0),(2,'Sinah','sdafwafqegrtwerwfgewfwe','waefrewaaewfaewf','sinje@nextmail.com','sinje@nextmail.com','Musikstudent','01571672173','Mir fällt leider auf anhieb nichts ein','üath/to/image.png',0);
+INSERT INTO `Users` (`userId`, `username`, `hash`, `salt`, `email`, `profileEmail`, `profileProfession`, `profilePhone`, `profileDescription`, `profileImage`, `balance`) VALUES (1,'Peer','sahdkasdjhgisdga','isadguiadg87t31gu','peer@mymail.com','peer@publicmail.com','Nachhilfelehrer','017561874625','Ich bin einer, wenn nicht der beste Nachhilfelehrer, den die Welt je gesehen hat. Dies ist ein Beispielfließtext, der beschreibt was mich beschreibt','path/to/the/image/myimage.png',0),(2,'Sinah','sdafwafqegrtwerwfgewfwe','waefrewaaewfaewf','sinje@nextmail.com','sinje@nextmail.com','Musikstudent','01571672173','Mir fällt leider auf anhieb nichts ein','üath/to/image.png',400000000);
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -238,4 +238,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-01 12:01:28
+-- Dump completed on 2020-07-04 12:27:32

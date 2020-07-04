@@ -4,7 +4,8 @@ const userModel = require('../models/user.model');
 const fs = require('fs');
 
 const PUBLIC_KEY = fs.readFileSync(__dirname+'/../../private/public_key.pem','utf-8');
-// At a minimum, you must pass the `jwtFromRequest` and `secretOrKey` properties
+
+// Tells passport where to find the Token (in Bearer Header)
 const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: PUBLIC_KEY,
@@ -16,7 +17,6 @@ module.exports = (passport) => {
     // The JWT payload is passed into the verify callback
     passport.use(new JwtStrategy(options, (jwt_payload, done) => {
 
-        console.log(jwt_payload);
         //Payload contains the userId
         userModel.getUserById(jwt_payload.sub, (err, user) => {
             if (err) {

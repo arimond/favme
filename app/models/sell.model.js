@@ -41,9 +41,15 @@ module.exports = class Sell{
                     result(err,null);
                     return;
                 }
+                
+                // Found Sells
+                if(res.length){
+                    result(null, res);
+                    return;
+                }
 
-                // Return Sells
-                result(null, res);
+                // Found no Sells
+                result({kind: 'not_found'}, null);
             }
         );
     }
@@ -60,15 +66,20 @@ module.exports = class Sell{
             'LIMIT ?',
             [userId, limit],
             (err, res) => {
-    
                 // Database Error
                 if(err){
                     result(err,null);
                     return;
                 }
+
+                // Sells found
+                if(res.length){
+                    result(null, res);
+                    return;
+                }
     
-                // Return Sells
-                result(null, res);
+                // No Sells
+                result({kind: "not_found"}, null);
             }
         );
     }

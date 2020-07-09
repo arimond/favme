@@ -18,12 +18,14 @@ module.exports = class Profile{
                  
                 //Database Error
                 if(err){
+                    console.log(err);
                     result(err, null);
                     return;
                 }
 
                 //Found profile for the User
                 if(res.length){
+
                     //Create the return Object with proper keys
                     let myProfile = {
                         userId: userId,
@@ -36,6 +38,8 @@ module.exports = class Profile{
                     result(null, myProfile);
                     return;
                 }
+                //User does not exist
+                return result({kind: "not_found"}, null);
             }
         );
     }

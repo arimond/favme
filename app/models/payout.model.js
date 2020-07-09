@@ -56,7 +56,7 @@ module.exports = class Payout {
                                 });
                             } else {
                                 // Not enaugh balance on account
-                                result({ kind: "balance_low" }, null);
+                                return result({ kind: "balance_low" }, null);
                             }
                         }
                         connection.release();

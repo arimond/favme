@@ -2,7 +2,6 @@ const sql = require("../config/database.js");
 
 module.exports = class Document{
     constructor(document){
-        console.log(document);
         this.subject = document.subject;
         this.image = document.image;
     }

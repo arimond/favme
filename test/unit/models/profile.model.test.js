@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const profileModel = require('../../app/models/profile.model');
+const profileModel = require('../../../app/models/profile.model');
 
 describe('Test profileModel', () => {
     describe('Find profile by userId', () => {

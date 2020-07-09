@@ -1,4 +1,5 @@
 node_modules/
 private/
+public/
 .env
 .DS_Store

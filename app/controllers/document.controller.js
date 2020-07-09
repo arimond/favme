@@ -20,7 +20,7 @@ module.exports = class DocumentController{
             if(error){
                 return next(new InternalServerError());
             }
-            res.status(200).send("The document has been uploaded successful");
+            res.status(200).json({success: true, message:'The ressource has been created'});
         });
     }
 }

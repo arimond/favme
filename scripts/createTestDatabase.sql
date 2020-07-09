@@ -83,7 +83,7 @@ CREATE TABLE `Documents` (
   `documentId` int unsigned NOT NULL AUTO_INCREMENT,
   `userId` int unsigned NOT NULL,
   `subject` varchar(45) NOT NULL,
-  `image` varchar(45) NOT NULL,
+  `image` varchar(300) NOT NULL,
   `isActive` tinyint unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`documentId`),
   KEY `fk_Documents_Users1_idx` (`userId`),
@@ -118,7 +118,7 @@ CREATE TABLE `Payouts` (
   PRIMARY KEY (`payoutId`),
   KEY `fk_Payouts_Bankaccounts1_idx` (`bankaccountId`),
   CONSTRAINT `fk_Payouts_Bankaccounts1` FOREIGN KEY (`bankaccountId`) REFERENCES `Bankaccounts` (`bankaccountId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +127,7 @@ CREATE TABLE `Payouts` (
 
 LOCK TABLES `Payouts` WRITE;
 /*!40000 ALTER TABLE `Payouts` DISABLE KEYS */;
-INSERT INTO `Payouts` (`payoutId`, `bankaccountId`, `amount`, `status`, `requestDate`, `approveDate`) VALUES (1,1,3000,'requested','2020-06-25 13:49:09',NULL),(2,1,40000,'proccessed','2020-06-25 13:49:09','2020-06-27 12:49:09');
+INSERT INTO `Payouts` (`payoutId`, `bankaccountId`, `amount`, `status`, `requestDate`, `approveDate`) VALUES (1,1,3000,'requested','2020-06-25 13:49:09',NULL),(2,1,40000,'proccessed','2020-06-25 13:49:09','2020-06-27 12:49:09'),(3,3,3000,'requested','2020-07-08 00:51:17',NULL),(4,3,3000,'requested','2020-07-08 00:51:19',NULL),(5,2,3000,'requested','2020-07-08 00:51:24',NULL),(6,2,3000,'requested','2020-07-08 00:51:26',NULL),(7,2,390475,'requested','2020-07-08 00:51:33',NULL),(8,2,390475,'requested','2020-07-08 00:51:34',NULL),(9,3,390475,'requested','2020-07-08 00:51:39',NULL),(10,3,390475,'requested','2020-07-08 00:51:40',NULL),(11,4,390475,'requested','2020-07-08 00:51:43',NULL),(12,4,390475,'requested','2020-07-08 00:51:44',NULL);
 /*!40000 ALTER TABLE `Payouts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +143,7 @@ CREATE TABLE `Products` (
   `userId` int unsigned NOT NULL,
   `name` varchar(100) NOT NULL,
   `description` mediumtext,
-  `image` varchar(45) DEFAULT NULL,
+  `image` varchar(300) DEFAULT NULL,
   `currency` varchar(10) NOT NULL,
   `price` int unsigned NOT NULL,
   `isActive` tinyint unsigned NOT NULL DEFAULT '1',
@@ -181,7 +181,7 @@ CREATE TABLE `Sells` (
   KEY `fk_Sells_Products1_idx` (`productId`),
   CONSTRAINT `fk_Sells_Customer1` FOREIGN KEY (`productId`) REFERENCES `Customers` (`customerId`),
   CONSTRAINT `fk_Sells_Products1` FOREIGN KEY (`productId`) REFERENCES `Products` (`productId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,7 +190,7 @@ CREATE TABLE `Sells` (
 
 LOCK TABLES `Sells` WRITE;
 /*!40000 ALTER TABLE `Sells` DISABLE KEYS */;
-INSERT INTO `Sells` (`sellId`, `productId`, `customerId`, `date`) VALUES (2,4,2,'2020-06-25 13:52:45'),(3,4,1,'2020-06-27 11:45:28');
+INSERT INTO `Sells` (`sellId`, `productId`, `customerId`, `date`) VALUES (2,4,2,'2020-06-25 13:52:45'),(3,4,1,'2020-06-27 11:45:28'),(4,7,1,'2020-07-08 13:49:00'),(5,7,2,'2020-07-08 13:49:04'),(6,7,2,'2020-07-08 13:49:06'),(7,7,4,'2020-07-08 13:49:10'),(8,7,3,'2020-07-08 13:49:14'),(9,7,5,'2020-07-08 13:49:17'),(10,7,6,'2020-07-08 13:49:20'),(11,7,7,'2020-07-08 13:49:23');
 /*!40000 ALTER TABLE `Sells` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -238,4 +238,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-04 12:27:32
+-- Dump completed on 2020-07-08 13:49:51

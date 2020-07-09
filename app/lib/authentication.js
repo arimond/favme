@@ -31,7 +31,6 @@ module.exports = class Authentication {
       sub: userId,
       iat: Date.now()
     };
-    console.log(PRIVATE_KEY);
     const signedToken = jsonwebtoken.sign(payload, PRIVATE_KEY, { expiresIn: expiresIn, algorithm: 'RS256' });
     return {
       token: "Bearer " + signedToken,

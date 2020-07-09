@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const bankaccountModel = require('../../app/models/bankaccount.model');
+const bankaccountModel = require('../../../app/models/bankaccount.model');
 
 describe('Test bankaccountModel', () => {
     describe('Create the Bankaccount', () => {

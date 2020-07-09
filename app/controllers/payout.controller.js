@@ -42,7 +42,6 @@ module.exports = class PayoutController{
     }
     
     static create(req, res, next) {
-        const userId = 13;
         // Validate request
         if(!req.body.amount || !(typeof req.body.amount) === 'number' ||
          !req.body.bankaccountId || !(typeof req.body.bankaccountId) === 'number'){
@@ -56,7 +55,7 @@ module.exports = class PayoutController{
             amount: req.body.amount
         });
 
-        payoutModel.create(userId, payout, (error, result) => {
+        payoutModel.create(req.user.userId, payout, (error, result) => {
             if(error){
                 if(error.kind === 'balance_low'){
                     return next(new NotEnaughBalanceError());

@@ -61,7 +61,7 @@ module.exports = class BankaccountController{
                 return next(new InternalServerError());
             }
             // bankaccount has been deleted
-            res.status(200).send("The ressource has been deleted successfully");
+            res.status(200).json({success: true, message: 'The ressource has been deleted'});
         });
     }
 
@@ -88,6 +88,7 @@ module.exports = class BankaccountController{
                 }
                 return next(new InternalServerError());
             }
+            // Deleted bankaccount
             res.status(200).json(result);
         });
     }

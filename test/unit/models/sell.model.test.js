@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const sellModel = require('../../app/models/sell.model');
+const sellModel = require('../../../app/models/sell.model');
 
 describe('Test sellModel', () => {
     describe('Create the sell', () => {

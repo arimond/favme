@@ -7,5 +7,8 @@ module.exports = (app) => {
         passport.authenticate('jwt', {session: false}),
         payoutController.get
         );
-    app.post('/api/users/payouts', payoutController.create);
+    app.post(
+        '/api/users/payouts',
+        passport.authenticate('jwt', {session:false}),
+        payoutController.create);
 }

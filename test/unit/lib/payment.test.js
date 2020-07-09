@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const payment = require('../../app/lib/payment');
+const payment = require('../../../app/lib/payment');
 
 describe('Test Payment', () => {
     describe('CalculateProductPay', () => {

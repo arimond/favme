@@ -17,6 +17,8 @@ module.exports = class User {
 
                 // Database Error
                 if(err){
+                    //Own Error for Email already exists
+                    //Own Error for Username already exists
                     result(err, null);
                     return;
                 }

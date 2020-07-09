@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const customerModel = require('../../app/models/customer.model');
+const customerModel = require('../../../app/models/customer.model');
 
 describe('Test customerModel', () => {
     describe('Create the customer', () => {

@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const payoutModel = require('../../app/models/payout.model');
+const payoutModel = require('../../../app/models/payout.model');
 
 describe('Test payoutModel', () => {
     describe('Create the payout', () => {

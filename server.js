@@ -23,17 +23,8 @@ if(process.env.NODE_ENV === 'development'){
 // Configure Passport
 require('./app/config/passport')(passport);
 
-
-
 // parse requests of content-type: application/json
 app.use(express.json());
-app.use(passport.initialize());
-
-
-
-
-// parse requests of content-type: application/x-www-form-urlencoded
-//app.use(express.urlencoded({ extended:false }));
 
 
 app.use('/api/',express.static('public'));
@@ -46,8 +37,11 @@ require("./app/routes/payout.routes")(app);
 require("./app/routes/product.routes")(app);
 require("./app/routes/profile.routes")(app);
 require("./app/routes/sell.routes")(app);
-require("./app/routes/user.routes")(app);
+require('./app/routes/payment.routes')(app);
 require("./app/routes/error.routes")(app);
+
+
+app.use(passport.initialize());
 
 //
 app.listen(4000);

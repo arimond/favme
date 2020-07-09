@@ -49,8 +49,7 @@ module.exports = class ProfileController{
             }
             
             // Updated profile
-            res.status(200).send("Updated Profile successfully");
+            res.status(200).json(result);
         });
     }
-
 }

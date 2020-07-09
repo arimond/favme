@@ -8,7 +8,6 @@ const RessourceNotFoundError = require('../errors/RessourceNotFoundError');
 
 module.exports = class ProductController{
     static create(req,res,next) {
-        console.log(req);
         // Validate Request
         if(!req.file || !req.body.name || !req.body.price || ! req.body.currency || !req.body.description || 
             !(req.body.currency === 'eur' || req.body.currency === 'usd')){
@@ -27,7 +26,7 @@ module.exports = class ProductController{
             image: imageUrl,
             price: price,
             income: feeIncome.income,
-            fee: feeIncome.income,
+            fee: feeIncome.fee,
             currency: req.body.currency
         });
 
@@ -83,7 +82,7 @@ module.exports = class ProductController{
                 return next(new InternalServerError());
             }
             // Product is deleted
-            res.status(200).send("The ressource has been deleted successfully");
+            res.status(200).json({success:true, message:'The ressource has been deleted'});
         });
     }
 
@@ -107,7 +106,7 @@ module.exports = class ProductController{
             image: imageUrl,
             price: price,
             income: feeIncome.income,
-            fee: feeIncome.income,
+            fee: feeIncome.fee,
             currency: req.body.currency
         });
 

@@ -14,11 +14,12 @@ module.exports = class User {
             'insert into Users(username, hash, salt, email) values(?, ?, ?, ?)',
             [user.username, user.hash, user.salt, user.email],
             (err, res) => {
-
                 // Database Error
                 if(err){
-                    //Own Error for Email already exists
                     //Own Error for Username already exists
+                    if(err.code === 'ER_DUP_ENTRY'){
+                        return result({kind:'email_already_exists'}, null)
+                    }
                     result(err, null);
                     return;
                 }

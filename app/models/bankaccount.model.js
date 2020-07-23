@@ -33,8 +33,6 @@ module.exports = class BankAccount {
             'select bankaccountId, userId, country, beneficiary, iban, bic from bankaccounts where userId = ?',
             [userId],
             (err, res) => {
-                //console.log(err);
-                //console.log(res);
                 // Database Error
                 if(err){
                     result(err,null);

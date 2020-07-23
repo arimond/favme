@@ -31,8 +31,8 @@ describe('Test User Routes', () => {
                 .request(app)
                 .post('/api/users/register')
                 .send({
-                    email: 'mytestmaill@testaccount.com',
-                    username: 'mytestusssername',
+                    email: 'mytestmaill@testaccountas.com',
+                    username: 'mytestussserdname',
                     password: 'sicheristdasnicht'
                 })
                 .end((err, res) => {

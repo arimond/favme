@@ -30,7 +30,7 @@ module.exports = class UserController {
             if (error) {
                 return next(new InternalServerError());
             }
-            res.status(200).send("Created User");
+            res.status(200).json({success: 'Created User'});
         });
     }
 
@@ -62,7 +62,8 @@ module.exports = class UserController {
             const token = utils.issueJWT(user.userId);
             res.status(200).json({
                 token: token.token,
-                expiresIn: token.expires
+                expiresIn: token.expires,
+                userId: user.userId
             });
         });
     }

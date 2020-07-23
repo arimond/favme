@@ -5,6 +5,7 @@ const payment = require("../lib/payment");
 const InvalidInputError = require('../errors/InvalidInputError');
 const InternalServerError = require('../errors/InternalServerError');
 const RessourceNotFoundError = require('../errors/RessourceNotFoundError');
+const InvalidPriceError = require('../errors/InvalidPriceError');
 
 module.exports = class ProductController{
     static create(req,res,next) {
@@ -16,7 +17,10 @@ module.exports = class ProductController{
 
         // Parse Input
         const price = parseInt(req.body.price);
-        const imageUrl = `http://${process.env.HOST}:${process.env.PORT}/api/productImages/${req.file.filename}`;
+        if(!payment.validatePrice(price)){
+            return next(new InvalidPriceError);
+        }
+        const imageUrl = `http://${process.env.HOST}:${process.env.PORT}/api/images/${req.file.filename}`;
         const feeIncome = payment.calculateProductPay(price);
         
         // Create Product

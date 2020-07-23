@@ -105,7 +105,7 @@ describe('Test Product Routes', () => {
                 .request(app)
                 .put('/api/users/products/7')
                 .field('name', 'Klavierunterricht Online')
-                .field('price', '30000')
+                .field('price', '3000')
                 .field('currency', 'eur')
                 .field('description', 'Ich bin eine neue Beschreibung und mein Wert soll sich aendern')
                 .attach('image', __dirname + '/../../testImages/testImage.jpeg', 'TestImageName')

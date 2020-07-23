@@ -1,9 +1,13 @@
-const JwtStrategy = require('passport-jwt').Strategy
-const ExtractJwt = require('passport-jwt').ExtractJwt;
-const userModel = require('../models/user.model');
 const fs = require('fs');
 
+// Import Passport JWT & Public Key
+const JwtStrategy = require('passport-jwt').Strategy
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 const PUBLIC_KEY = fs.readFileSync(__dirname+'/../../private/public_key.pem','utf-8');
+
+// Import Models
+const userModel = require('../models/user.model');
+
 
 // Tells passport where to find the Token (in Bearer Header)
 const options = {

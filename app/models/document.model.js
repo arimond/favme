@@ -12,15 +12,13 @@ module.exports = class Document{
             'insert into Documents(userId, subject, image) values(?, ?, ?)',
             [userId, document.subject, document.image],
             (err, res) => {
-
                 // Database Error
                 if(err){
-                    result(err, null);
-                    return;
+                    return result(err, null);
                 }
 
                 // Created Document
-                result(null, {documentId: res.insertId, ...document});
+                return result(null, {documentId: res.insertId, ...document});
             }
         );
     } 

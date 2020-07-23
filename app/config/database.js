@@ -1,3 +1,4 @@
+require('dotenv').config();
 const mysql = require('mysql');
 const env = process.env.NODE_ENV.toUpperCase();
 

@@ -31,7 +31,7 @@ module.exports = class ProfileController{
             }
         
         // Parse Image Url
-        const imageUrl = `http://${process.env.HOST}:${process.env.PORT}/api/productImages/${req.file.filename}`;
+        const imageUrl = `http://${process.env.HOST}:${process.env.PORT}/api/images/${req.file.filename}`;
 
         // Create profile
         const profile = new profileModel({

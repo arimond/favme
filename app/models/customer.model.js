@@ -13,13 +13,36 @@ module.exports = class Customer{
             (err,res) => {
                 // Database Error
                 if(err){
-                result(err, null);
-                return;
+                    if(err.code === 'ER_DUP_ENTRY'){
+                        return result({kind:'email_already_exists'}, null)
+                    }
+                    return result(err, null);
                 }
-
                 // Created Customer
-                result(null, {customerId: res.insertId, ...customer});
+                return result(null, {customerId: res.insertId, ...customer});
             }
         );
+    }
+
+    // Get a customer by email:
+    static getByMail(customerMail, result) {
+        sql.query(
+            'SELECT customerId from Customers where email = ?',
+            [customerMail],
+            (err, res) => {
+                if(err){
+                    // Database Error
+                    return result(err, null)
+                }
+
+                if(!res.length){
+                    // No Customer found
+                    return result({kind: 'not_found'}, null);
+                }
+
+                // Found Customer
+                return result(null,res[0]);
+            }
+        )
     }
 }

@@ -120,7 +120,7 @@ describe('Test Payout Routes', () => {
                 .send(payout)
                 .end((err, res) => {
                     expect(err).to.be.a('null');
-                    expect(res).to.have.status(401);
+                    expect(res).to.have.status(400);
                     expect(res.body).to.be.an('object');
                     expect(res.body).to.have.property('error','Not enaugh Balance');
                     done();

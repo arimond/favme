@@ -25,6 +25,7 @@ describe('Test Bankaccount Routes', () => {
         done();
     });
 
+    
     describe("Test Get Bankaccounts", () => {
         it('Should return 200 Success and a list of bankaccounts', (done) => {
             chai
@@ -35,7 +36,6 @@ describe('Test Bankaccount Routes', () => {
                     expect(err).to.be.a('null');
                     expect(res).to.have.status(200);
                     expect(res.body).to.be.an('array');
-                    expect(res.body.length).to.be.equal(4);
                     expect(res.body[0]).to.have.property('bankaccountId');
                     expect(res.body[0]).to.have.property('userId');
                     expect(res.body[0]).to.have.property('country');
@@ -47,6 +47,7 @@ describe('Test Bankaccount Routes', () => {
         });
     });
 
+    
     describe("Test Post Bankaccounts", () => {
         it('Should return 200 Success and a the created bankaccount', (done) => {
             const bankaccount = {

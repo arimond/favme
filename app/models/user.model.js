@@ -56,9 +56,9 @@ module.exports = class User {
     }
 
     // Returns a User by its Id
-    static getUserById(userId, result) {
+    static getById(userId, result) {
         sql.query(
-            'select userId, username, hash, salt from Users where userId = ?',
+            'select username from Users where userId = ?',
             [userId],
             (err, res) =>{
 
@@ -77,7 +77,7 @@ module.exports = class User {
                 // Found no User for the email address
                 result({kind: "not_found"}, null);
             }
-        )
+        );
     }
 
     // Return the Balance of a User by its userId

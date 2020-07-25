@@ -48,8 +48,23 @@ describe('Test UserModel', () => {
             });
         });
     });
+    describe('Find User by userId', () => {
+        it('should get the username by userId', () => {
+            userModel.getById(1, (err,res) => {
+                assert.isNotNull(res);
+                assert.property(res,"username");
+                assert.isNull(err);
+            });
+        });
+        it('should return error not_found because the user does not exist in the database', () => {
+            userModel.getByEmail(1000, (err, res) => {
+                assert.isNull(res);
+                assert.propertyVal(err,"kind", "not_found");
+            });
+        });
+    });
     describe('Find the balance of a User', () => {
-        it('should get the user by the userId', () => {
+        it('should get the bakance of th user by the userId', () => {
             userModel.getBalanceById(1, (err,res) => {
                 assert.isNotNull(res);
                 assert.property(res,"userId");

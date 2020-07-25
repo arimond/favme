@@ -38,7 +38,6 @@ module.exports = class BankAccount {
                     result(err,null);
                     return;
                 }
-
                 if(res.length){
                     result(null, res);
                     return;

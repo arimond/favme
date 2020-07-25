@@ -45,7 +45,6 @@ module.exports = class BankaccountController{
             // Found bankaccounts
             res.status(200).json(result);
         });
-
     }
 
     static getOne(req, res){

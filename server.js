@@ -65,6 +65,12 @@ https.createServer({
 }, app)
 .listen(4000);
 */
-app.listen(4000);
+
+// For Testing on a diffrent Port, so you can run the app while testing
+if(process.env.NODE_ENV !== 'test'){
+    app.listen(4000);
+}else{
+    app.listen(4234);
+}
 //Export App only for Testing purpose
 module.exports = app; 

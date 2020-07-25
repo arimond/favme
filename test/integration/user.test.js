@@ -103,4 +103,16 @@ describe('Test User Routes', () => {
                 });
         });
     });
+    describe("Test Get Username", () => {
+        it('Should return 200 Success', (done) => {
+            chai
+                .request(app)
+                .get('/api/users/username/2')
+                .send()
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    done();
+                });
+        });
+    });
 });

@@ -9,6 +9,7 @@ const stripe = require("stripe")(stripeSecretKey);
 const productModel = require('../models/product.model');
 const sellModel = require('../models/sell.model');
 const customerModel = require('../models/customer.model');
+const userModel = require('../models/user.model');
 
 // Import Errors
 const RessourceNotFoundError = require("../errors/RessourceNotFoundError");
@@ -63,6 +64,7 @@ module.exports = class PaymentController {
       case "payment_intent.succeeded":
         const payment = payment.object;
         if(payment.status === 'succeeded'){
+          console.log(payment);
           // Testing Webhook with CLI does not provide Metadata in production there will be metadata
           if(payment.metadata.userId && payment.metadata.productId){
             handleOrder(payment.metadata.productId, payment.receipt_email);
@@ -90,7 +92,7 @@ module.exports = class PaymentController {
                return;
              }
              customerId = result.customerId;
-           })
+           });
          }
          customerId = result.customerId;
        }
@@ -106,6 +108,8 @@ module.exports = class PaymentController {
       // Created sell, but we don´t need to do anything
       return;
     });
+
+    // Add balance to User Account
   }
 };
 

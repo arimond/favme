@@ -35,7 +35,7 @@ CREATE TABLE `Bankaccounts` (
   PRIMARY KEY (`bankaccountId`),
   KEY `fk_Bankaccounts_Users_idx` (`userId`),
   CONSTRAINT `fk_Bankaccounts_Users` FOREIGN KEY (`userId`) REFERENCES `Users` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `Bankaccounts` (
 
 LOCK TABLES `Bankaccounts` WRITE;
 /*!40000 ALTER TABLE `Bankaccounts` DISABLE KEYS */;
-INSERT INTO `Bankaccounts` (`bankaccountId`, `userId`, `country`, `beneficiary`, `iban`, `bic`, `isActive`) VALUES (1,1,'Deutschland','Peer Hofreiter','DE41500105170123456789','12030000',1),(2,1,'Deutschland','Sinah Kolumba','DE41500105170123123789','120301234',0),(3,2,'Deutschland','Sinah Kolumba','DE41500105170123123789','120301234',1),(4,2,'Deutschland','Sinah Kolumba','DE41500105170123123789','120301234',0),(5,2,'Deutschland','Max Mustermann','DE123028719837121827123','1089237182739',1),(6,2,'ChangedValue','Max Mustermann','DE123028719837121827123','1089237182739',1);
+INSERT INTO `Bankaccounts` (`bankaccountId`, `userId`, `country`, `beneficiary`, `iban`, `bic`, `isActive`) VALUES (1,1,'Deutschland','Peer Hofreiter','DE41500105170123456789','12030000',1),(2,1,'Deutschland','Sinah Kolumba','DE41500105170123123789','120301234',0),(3,2,'Deutschland','Sinah Kolumba','DE41500105170123123789','120301234',1),(4,2,'Deutschland','Sinah Kolumba','DE41500105170123123789','120301234',0),(5,2,'Deutschland','Max Mustermann','DE123028719837121827123','1089237182739',1),(6,2,'ChangedValue','Max Mustermann','DE123028719837121827123','1089237182739',1),(9,2,'Frankreich','Sinje Muster','DE123028719837121827123','1089237182739',1);
 /*!40000 ALTER TABLE `Bankaccounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -239,4 +239,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-22 23:11:20
+-- Dump completed on 2020-07-25 11:04:23

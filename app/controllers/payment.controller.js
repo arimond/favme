@@ -64,10 +64,9 @@ module.exports = class PaymentController {
       case "payment_intent.succeeded":
         const payment = payment.object;
         if(payment.status === 'succeeded'){
-          console.log(payment);
           // Testing Webhook with CLI does not provide Metadata in production there will be metadata
-          if(payment.metadata.userId && payment.metadata.productId){
-            handleOrder(payment.metadata.productId, payment.receipt_email);
+          if(payment.metadata.userId && payment.metadata.productId && payment.receipt_email){
+            handleOrder(payment.metadata.userId, payment.metadata.productId, payment.receipt_email);
           }
         }
         break;
@@ -79,7 +78,8 @@ module.exports = class PaymentController {
     // Payment was successfull
     return res.json({ received: true });
   }
-  handleOrder(productId, customerMail){
+
+  handleOrder(userId, productId, customerMail){
     let customerId;
     // Check if customer already exists else create Customer
     customerModel.getByMail(customerMail, (error, result) => {
@@ -110,6 +110,13 @@ module.exports = class PaymentController {
     });
 
     // Add balance to User Account
+    productModel.getById(userId, productId, (result, error) => {
+      // There can´t be an error, because product always exists
+      userModel.addBalanceById(userId, result.income, (result, error) => {
+        console.log(error);
+        console.log(result);
+      });
+    });
   }
 };
 

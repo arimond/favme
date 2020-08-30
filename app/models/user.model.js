@@ -58,24 +58,22 @@ module.exports = class User {
     // Returns a User by its Id
     static getById(userId, result) {
         sql.query(
-            'select username from Users where userId = ?',
+            'select userId, username from Users where userId = ?',
             [userId],
             (err, res) =>{
-
                 // Database Error
                 if(err){
-                    result(err, null);
-                    return;
+                    return result(err, null);
+                    
                 }
 
                 // Found one User
                 if(res.length){
-                    result(null, res[0]);
-                    return;
+                    return result(null, res[0]);
                 }
 
                 // Found no User for the email address
-                result({kind: "not_found"}, null);
+                return result({kind: "not_found"}, null);
             }
         );
     }

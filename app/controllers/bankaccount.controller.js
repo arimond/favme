@@ -91,8 +91,4 @@ module.exports = class BankaccountController{
             res.status(200).json(result);
         });
     }
-
-    static getSecret(req, res) {
-
-    }
 }

@@ -16,7 +16,7 @@ if(process.env.NODE_ENV !== 'production'){
 const app = express();
 const https = require('https');
 
-// Allow Corsssite Scripting for Browser Policies, it is disabled for testing
+// Allow Corss Origin Ressource Sharing for Browser Policies, it is disabled for testing
 if(process.env.NODE_ENV !== 'test'){
     app.use(cors({
         origin: '*',  // Everybody can use the API in Production

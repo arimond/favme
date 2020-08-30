@@ -4,7 +4,6 @@ const fs = require('fs');
 const PRIVATE_KEY = fs.readFileSync(__dirname+'/../../private/private_key.pem','utf-8');
 
 module.exports = class Authentication {
-
   /*
     This function validates the password. It uses the crypto library to decrypt the hash using the salt and then compares
     the decrypted hash/salt with the password that the user provided at login

@@ -123,6 +123,5 @@ module.exports = class ProductController{
             }
             res.status(200).json(result);
         });
-        // Delete old picture
     }
 }

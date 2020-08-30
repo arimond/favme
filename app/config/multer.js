@@ -8,7 +8,6 @@ module.exports = class Multer {
             },
             filename: (req, file, result) => {
                 const imageUrl = new Date().toISOString() + file.originalname;
-                // Check length to avoid database Error 
                 result(null, imageUrl);
             }
         });

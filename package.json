@@ -10,6 +10,7 @@
     "integrationTest": "npm run createTestDatabase && NODE_ENV=test mocha test/integration/ --recursive",
     "createTestDatabase": "mysql -h localhost -u root -p < scripts/createTestDatabase.sql",
     "createCertificate": "openssl req -nodes -new -x509 -keyout server.key -out server.cert",
+    "createDatabase": "mysql -h localhost -u root -p < scripts/createDatabase.sql",
     "generateKeypair": "node scripts/generateKeypair.js"
   },
   "author": "Peer Arimond",
